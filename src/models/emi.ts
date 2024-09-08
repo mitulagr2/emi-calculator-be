@@ -7,7 +7,10 @@ import {
   type InferCreationAttributes,
 } from "sequelize";
 
-class EMI extends Model<InferAttributes<EMI>, InferCreationAttributes<EMI>> {
+export class EMI extends Model<
+  InferAttributes<EMI>,
+  InferCreationAttributes<EMI>
+> {
   declare id: number;
   declare loan_amount: number;
   declare interest_rate: number;

@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import db from "../models/index.ts";
+import formatEmi from "../bin/formatEmi.ts";
 
 export const calculate = (req: Request, res: Response) => {
   const prepayment = req.body.prepayment_amount || 0;
@@ -28,7 +29,7 @@ export const calculate = (req: Request, res: Response) => {
     remaining_balance: P_new,
   })
     .then((emi) => {
-      res.status(201).send(emi);
+      res.status(201).send(formatEmi(emi));
     })
     .catch((error) => res.status(400).send(error));
 };
@@ -51,7 +52,7 @@ export const getById = (req: Request, res: Response) => {
           message: "EMI Not Found",
         });
       }
-      return res.status(200).send(emi);
+      return res.status(200).send(formatEmi(emi));
     })
     .catch((error) => {
       console.log(error);
