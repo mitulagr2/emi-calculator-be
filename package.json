@@ -7,7 +7,9 @@
   "scripts": {
     "start": "nodemon src/index.ts",
     "build": "tsc",
-    "serve": "node dist/index.js"
+    "serve": "node dist/index.js",
+    "setup": "docker compose up --detach",
+    "teardown": "docker compose down && docker volume rm emi-calculator-be_db"
   },
   "devDependencies": {
     "@types/bun": "latest",
