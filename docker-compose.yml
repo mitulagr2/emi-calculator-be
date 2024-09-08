@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: "postgres:latest"
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "5432:${DB_PORT}"
+    volumes:
+      - "db:/var/lib/postgresql/data"
+volumes:
+  db: {}
