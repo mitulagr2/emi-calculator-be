@@ -1,11 +1,9 @@
 import url from "url";
 import path from "path";
 import express from "express";
-import dotenv from "dotenv";
 import db from "./models/index.ts";
 import indexRouter from "./routes/index.ts";
 
-dotenv.config();
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();

@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import type { DBCredential } from "../types/types.ts";
 
 export const creds: { [x: string]: DBCredential } = {
