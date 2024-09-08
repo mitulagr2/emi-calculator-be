@@ -3,26 +3,27 @@ import db from "../models/index.ts";
 import formatEmi from "../bin/formatEmi.ts";
 
 export const calculate = (req: Request, res: Response) => {
-  const prepayment = req.body.prepayment_amount || 0;
-  const P = req.body.loan_amount;
-  const R = req.body.interest_rate;
-  let N = req.body.loan_tenure_months;
+  const prepayment = +req.body.prepayment_amount || 0;
+  const P = +req.body.loan_amount;
+  const R_annual = +req.body.interest_rate;
+  let N = +req.body.loan_tenure_months;
 
-  if (!P || !R || !N) {
+  if (!P || !R_annual || !N) {
     return res
       .status(400)
       .send("Missing loan amount, interest rate, or loan tenure months.");
   }
 
+  const R = R_annual / 1200;
+  let E = (P * R * (1 + R) ** N) / ((1 + R) ** N - 1);
+  E = Math.round(E * 100) / 100;
+
   const P_new = P - prepayment;
-
-  const E = ((P_new * R * (1 + R)) ^ N) / ((1 + R) ^ (N - 1));
-
-  N = (Math.log(E) - Math.log(E - P_new * R)) / Math.log(1 + R);
+  N = Math.ceil(Math.log(E / (E - P_new * R)) / Math.log(1 + R));
 
   db.sequelize.models.EMI.create({
     loan_amount: P,
-    interest_rate: R,
+    interest_rate: R_annual,
     loan_tenure_months: N,
     emi: E,
     prepayment_amount: prepayment > 0 ? prepayment : null,
@@ -31,7 +32,10 @@ export const calculate = (req: Request, res: Response) => {
     .then((emi) => {
       res.status(201).send(formatEmi(emi));
     })
-    .catch((error) => res.status(400).send(error));
+    .catch((error) => {
+      console.log(error);
+      res.status(400).send(error);
+    });
 };
 
 export const list = (_req: Request, res: Response) => {
