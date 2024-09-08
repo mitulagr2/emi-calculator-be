@@ -1,14 +1,6 @@
-import type { Dialect } from "sequelize";
+import type { DBCredential } from "../types/types.ts";
 
-interface cred {
-  username: string;
-  password: string;
-  database: string;
-  host: string;
-  dialect: Dialect;
-}
-
-export const creds: { [x: string]: cred } = {
+export const creds: { [x: string]: DBCredential } = {
   development: {
     username: process.env.DB_USERNAME || "postgres",
     password: process.env.DB_PASSWORD || "postgres_password",

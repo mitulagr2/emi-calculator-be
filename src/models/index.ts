@@ -1,14 +1,9 @@
 import fs from "fs";
 import url from "url";
 import path from "path";
-import { DataTypes, Model, Sequelize } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 import { creds } from "../config/config.ts";
-
-interface Database {
-  sequelize: Sequelize;
-  Sequelize: typeof Sequelize;
-  [x: string]: Model | Sequelize | typeof Sequelize;
-}
+import type { Database } from "../types/types.ts";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
