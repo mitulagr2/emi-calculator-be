@@ -1,3 +1,9 @@
+/** Returns Interest Per Month
+ * - pv - Present/Principal value
+ * - pmt - Payment (Monthly)
+ * - rate - Interest rate (Monthly)
+ * - per - Months
+ */
 const IPMT = (pv: number, pmt: number, rate: number, per: number) => {
   const tmp = (1 + rate) ** per;
 

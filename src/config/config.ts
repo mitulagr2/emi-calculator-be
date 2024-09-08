@@ -3,6 +3,7 @@ dotenv.config();
 
 import type { DBCredential } from "../types/types.ts";
 
+/** Sequelize configuration parameters */
 export const creds: { [x: string]: DBCredential } = {
   development: {
     username: process.env.DB_USERNAME || "postgres",

@@ -3,8 +3,10 @@ import type { EMI } from "../models/emi.ts";
 import type { Model } from "sequelize";
 import IPMT from "./IPMT.ts";
 
+/** Takes a database EMI object and returns formatted response */
 const formatEmi = (emi_data: Model) => {
   const emi = emi_data as EMI;
+  /** Formatted EMI Response */
   const resp: EMIResponse = {
     loanAmount: emi.loan_amount,
     interestRate: emi.interest_rate,
@@ -16,6 +18,7 @@ const formatEmi = (emi_data: Model) => {
 
   const R_monthly = resp.interestRate / 1200;
 
+  // Month-wise breakdown
   for (let n = 1; n <= resp.loanTenureMonths; ++n) {
     const prevBal =
       n === 1

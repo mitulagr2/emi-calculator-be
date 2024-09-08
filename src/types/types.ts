@@ -1,5 +1,6 @@
 import type { Dialect, Model, Sequelize } from "sequelize";
 
+/** Sequelize configuration */
 export interface DBCredential {
   username: string;
   password: string;
@@ -8,12 +9,14 @@ export interface DBCredential {
   dialect: Dialect;
 }
 
+/** typeof app database instance */
 export interface Database {
   sequelize: Sequelize;
   Sequelize: typeof Sequelize;
   [x: string]: Model | Sequelize | typeof Sequelize;
 }
 
+/** Formatted monthly breakdown response */
 export interface MonthlyPayment {
   month: number;
   emiPaid: number;
@@ -23,6 +26,7 @@ export interface MonthlyPayment {
   remainingBalance: number;
 }
 
+/** Formatted EMI response */
 export interface EMIResponse {
   loanAmount: number;
   interestRate: number;
