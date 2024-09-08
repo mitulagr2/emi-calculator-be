@@ -11,5 +11,6 @@ router.get("/ping", function (_req, res, _next) {
 /* EMI Router */
 router.get("/emis", controller.emi.list);
 router.get("/emi/:id", controller.emi.getById);
+router.post("/calculate-emi", controller.emi.calculate);
 
 export default router;
