@@ -7,6 +7,15 @@ import {
   type InferCreationAttributes,
 } from "sequelize";
 
+/** Database EMI Table representation
+ * - id (primary key, auto-increment)
+ * - loan_amount (decimal)
+ * - interest_rate (decimal)
+ * - loan_tenure_months (integer)
+ * - emi (decimal)
+ * - prepayment_amount (decimal, default null) - stores any extra payments made during the loan.
+ * - remaining_balance (decimal) - updates based on monthly payments and prepayments.
+ */
 export class EMI extends Model<
   InferAttributes<EMI>,
   InferCreationAttributes<EMI>
@@ -20,6 +29,7 @@ export class EMI extends Model<
   declare remaining_balance: number;
 }
 
+// Initialize EMI Table
 const init = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
   EMI.init(
     {
@@ -39,6 +49,7 @@ const init = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     {
       sequelize,
       modelName: "EMI",
+      // append createdAt and updatedAt fields
       timestamps: true,
     }
   );
